@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<script src="jquery-1.12.2.min.js"></script>
+	<style type="text/css">
+		div {
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			text-align: center;
+		}
+		img {
+			width: 64px;
+			height: 64px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<img src="1.png" alt="" />
+		<img src="2.png" alt="" />
+		<img src="3.png" alt="" />
+		<img src="4.png" alt="" />
+		<img src="5.png" alt="" />
+	</div>
+	
+	<script type="text/javascript">
+		
+		$(function(){
+			
+			var aImg = $('img');
+			var oDiv = $('div')[0];
+			
+			$(document).mousemove(function(ev){
+				
+				$.each(aImg, function(index,element) {
+					
+					var x = $(aImg[index]).offset().left + $(aImg[index]).outerWidth()/2;
+					var y = $(aImg[index]).offset().top + $(aImg[index]).outerHeight()/2;
+					
+					var a = ev.pageX - x;
+					var b = ev.pageY - y;
+					
+					var c = Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+					
+					var scale = 1 - c/300;
+					
+					if(scale<.5){
+						scale = .5
+					}
+					
+					$(aImg[index]).css({
+						width : scale*128,
+						height : scale*128
+					});
+					
+				});
+				
+			});
+			
+			
+			
+		});
+		
+	</script>
+	
+	
+</body>
+</html>

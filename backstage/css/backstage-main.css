@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+/* public */
+body {
+	margin-top: 70px;
+}
+span {
+	margin-right: 10px;
+}
+.mag-t {
+    margin-top: 15px;
+}
+
+/* 进度条  */
+.progress {
+	margin-bottom: 12px;
+}
+
+/* 留言板 */
+.media-object {
+	width: 64px;
+	height: 64px;
+	border-radius: 32px;
+}
+h4 {
+	font-weight: bold;
+}
+.media-body {
+	font-family: "微软雅黑";
+}
+
+/* footer */
+footer {
+	text-align: center;
+	padding: 20px 0 30px 0;
+}
+
+.panel.panel-default {
+	border-top: 0;
+}
+.table>tbody>tr>td, .table>tbody>tr>th {
+	vertical-align: middle;
+}
+.pagination span {
+	margin-right: 0;
+}
+
+a {
+	cursor: pointer;
+}
+
+th {
+	font-weight: bold;
+}
+.alert-info{
+    margin-right: 15px;
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>backstage</title>
+	<!--<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" />-->
+	<link rel="stylesheet" href="http://bootswatch.com/cyborg/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/backstage-main.css" />
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">Hello Admin</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="index.html"><span class="glyphicon glyphicon-home"></span>后台首页</a></li>
+					<li><a href="user-manage.html"><span class="glyphicon glyphicon-user"></span>用户管理</a></li>
+					<li><a href="content-manage.html"><span class="glyphicon glyphicon-list-alt"></span>内容管理</a></li>
+					<li class="active"><a href="tags-manage.html"><span class="glyphicon glyphicon-tags"></span>标签管理</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a id="dLabel" type="button" data-toggle="dropdown">
+							admin
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dLabel">
+							<li><a href="#"><span class="glyphicon glyphicon-screenshot"></span>前台首页</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span>个人主页</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-cog"></span>个人设置</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-piggy-bank"></span>账户中心</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-heart"></span>我的收藏</a></li>
+						</ul>
+					</li>
+					<li><a href="#"><span class="glyphicon glyphicon-off"></span>退出</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+				  <li><a href="user-manage.html">TAG标签管理</a></li>
+				</ol>
+				<form action="">
+					<div class="col-md-10">
+						<input class="form-control" type="text" placeholder="请输入想要添加的标签" />
+					</div>
+					<div class="col-md-2">
+						<button class="btn btn-default">添加</button>
+					</div>
+				</form>
+				<div class="col-md-12 mag-t">
+					<div class="alert alert-info alert-dismissible pull-left fade in" role="alert">
+				      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+				      	<strong>bootstrap</strong>
+				    </div>
+				    <div class="alert alert-info alert-dismissible pull-left fade in" role="alert">
+				      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+				      	<strong>HTML5</strong>
+				    </div>
+				    <div class="alert alert-info alert-dismissible pull-left fade in" role="alert">
+				      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+				      	<strong>CSS</strong>
+				    </div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<p>Copyright © 2012-2015  www.maiziedu.com  蜀ICP备13014270号-4</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

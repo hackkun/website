@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>pullWater/定位瀑布流/</title>
+	<script src="jquery-1.12.2.min.js"></script>
+	<style>
+		body,img { margin: 0; padding: 0; }
+		img { position: absolute; border: none; vertical-align: top; }
+		#wrap { margin: 60px auto 0; border: 1px solid #ccc; overflow: -hidden; position: relative; }
+		#loading { width: 100%; height: 60px; background: url(loader.gif) no-repeat center #fff; position: fixed; bottom: 0; left: 0; display: none; }
+	</style>
+</head>
+<body>
+	<div id="wrap"></div>
+	<div id="loading"></div>
+	
+	<script type="text/javascript">
+		
+		var oWrap = $('#wrap');
+		var oLoading = $('#loading');
+		var iCells = 0;
+		var iWidth = 200;
+		var iSpace = 10;
+		var iOutWidth = iWidth + iSpace;
+		var sUrl = 'http://www.wookmark.com/api/json/popular?callback=?';
+		var iPage = 0;
+		var arrT = [];
+		var arrL = [];
+		var iBtn = true;
+		
+		// 计算iCells(列数)并设置oWrap的宽度
+		getCells();
+		
+		function getCells(){
+			iCells = Math.floor($(window).innerWidth() / iOutWidth);
+			
+			if(iCells < 3){
+				iCells = 3;
+			}else if(iCells > 6){
+				iCells = 6;
+			}
+			
+			oWrap.css('width',iCells * iOutWidth - iSpace);
+		}
+		
+		// 初始化arrT/arrL的值
+		for(var i=0;i<iCells;i++){
+			arrT[i] = 0;
+			arrL[i] = iOutWidth * i;
+		}
+		
+		// 获取数据
+		getData();
+		
+		function getData(){
+			
+			if(!iBtn) return;
+			iBtn = false;
+			iPage++;
+			
+			$.getJSON(sUrl,{'page':iPage},function(data){
+				
+				oLoading.show();
+				
+				$.each(data, function(index, obj) {
+					//创建img元素
+					var oImg = $('<img />');
+					
+					//事先获得预加载的高度
+					var iHeight = Math.floor((iWidth / obj.width) * obj.height);
+					
+					//设置oImg的高度和宽度/left和top值
+					oImg.css({
+						'width' : iWidth,
+						'height' : iHeight
+					});
+					
+					// 取得最短索引
+					var _index = getShort();
+					oImg.css({
+						'left' : arrL[_index],
+						'top' : arrT[_index]
+					});
+					
+					//每加载一张图片都要添加高度,并且加上间隔高度
+					arrT[_index] += iHeight + 10;
+					
+					// 添加到oWrap中
+					oWrap.append(oImg);
+					
+					// 图片预加载
+					var objImg = new Image();
+					objImg.src = obj.preview;
+					objImg.onload = function(){
+						oImg.attr('src',this.src);
+					};
+					
+					setTimeout(function(){
+						oLoading.hide();
+					},1000);
+					
+					iBtn = true;
+					
+				});
+				
+			});
+		}
+		
+		// 取得img中最短的一列的索引值
+		function getShort(){
+			var num = arrT[0];
+			var _index = 0;
+			for(var i=1; i<arrT.length; i++){
+				if(num > arrT[i]){
+					num = arrT[i];
+					_index = i;
+				}
+			}
+			return _index;
+		}
+		
+		// 当滚轮到达一定距离后加载下一批图片
+		$(window).on('scroll', function(){
+			var _index = getShort();
+			var iH = $(window).scrollTop() + $(window).innerHeight() - 60;
+			if(arrT[_index] < (iH + 150)){
+				getData();
+			}
+		});
+		
+		// 当窗口缩小时，重新加载列数
+		$(window).on('resize', function(){
+		
+			var iLen = iCells;
+		
+			// 计算iCells(列数)并设置oWrap的宽度
+			getCells();
+			
+			if(iLen == iCells) return;
+			
+			arrT = [];
+			arrL = [];
+			
+			// 初始化arrT/arrL的值
+			for(var i=0;i<iCells;i++){
+				arrT[i] = 0;
+				arrL[i] = iOutWidth * i;
+			}
+			
+			oWrap.find('img').each(function(){
+				
+				var _index = getShort();
+				
+				$(this).stop().animate({
+					'left' : arrL[_index],
+					'top' : arrT[_index]
+				},500);
+				
+				arrT[_index] += $(this).height() + 10;
+				
+			});
+		
+		});
+		
+		
+	</script>
+	
+</body>
+</html>
