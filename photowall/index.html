@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<script src="jquery-1.12.2.min.js"></script>
+	<link rel="stylesheet" href="reset.css" />
+	<style>
+		ul {
+			width: 660px;
+			margin: 10px auto 0;
+			position: relative;
+		}
+		li {
+			width: 200px;
+			height: 150px;
+			margin: 10px;
+			float: left;
+		}
+		img {
+			width: 200px;
+			height: 150px;
+		}
+	</style>
+</head>
+<body>
+	
+	<button>随机</button>
+	
+	<ul>
+		<li><img src="1.jpg" /></li>
+		<li><img src="2.jpg" /></li>
+		<li><img src="3.jpg" /></li>
+		<li><img src="4.jpg" /></li>
+		<li><img src="5.jpg" /></li>
+		<li><img src="1.jpg" /></li>
+		<li><img src="2.jpg" /></li>
+		<li><img src="3.jpg" /></li>
+		<li><img src="4.jpg" /></li>
+	</ul>
+	
+	<script type="text/javascript">
+	
+		var aLi = $('li');
+		var arr = []; 
+		var maxIndex = 2;
+		var oBtn = $('button')[0];
+		
+		$(oBtn).click(function(){
+			var randomArr = [0,1,2,3,4,5,6,7,8];
+			
+			randomArr.sort(function(n1, n2){
+				return Math.random() - 0.5;
+			});
+			
+			for(var i=0;i<aLi.length;i++){
+				$(aLi[i]).animate({
+					left : arr[randomArr[i]][0],
+					top : arr[randomArr[i]][1]
+				});
+				aLi[i].index = randomArr[i];
+			}
+		});	
+		
+		for(var i=0;i<aLi.length;i++){
+			arr.push( [ aLi[i].offsetLeft, aLi[i].offsetTop ] );
+		}
+		
+		for(var i=0;i<aLi.length;i++){
+			$(aLi[i]).css({
+				position : 'absolute',
+				left : arr[i][0],
+				top : arr[i][1],
+				margin : 0
+			});
+		}
+		
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].index = i;
+			drag( aLi[i] );
+		}
+		
+		function pz(obj1, obj2){
+			var L1 = obj1.offsetLeft;
+			var R1 = obj1.offsetLeft + obj1.offsetWidth;
+			var T1 = obj1.offsetTop;
+			var B1 = obj1.offsetTop + obj1.offsetHeight;
+			
+			var L2 = obj2.offsetLeft;
+			var R2 = obj2.offsetLeft + obj2.offsetWidth;
+			var T2 = obj2.offsetTop;
+			var B2 = obj2.offsetTop + obj2.offsetHeight;
+			
+			if(R1<L2 || L1>R2 || B1<T2 || T1>B2){
+				return false;
+			}else{
+				return true;
+			}
+		}
+		
+		function drag(obj){
+			var disX = 0;
+			var disY = 0;
+			$(obj).mousedown(function(ev){
+				$(this).css('z-index', maxIndex++);
+				
+				disX = ev.clientX - obj.offsetLeft;
+				disY = ev.clientY - obj.offsetTop;
+				
+				$(document).mousemove(function(ev){
+					var iL = ev.clientX - disX;
+					var iT = ev.clientY - disY;
+					$(obj).css({
+						left : iL,
+						top : iT
+					});
+					
+					for(var i=0;i<aLi.length;i++){
+						aLi[i].style.border = 'none';
+					}
+					var nL = nearLi(obj);
+					if(nL){
+						nL.style.border = '2px solid red';
+					}
+					
+				});
+				
+				$(document).mouseup(function(){
+					$(document).off();
+					
+					var nL = nearLi(obj);
+					
+					if(nL){
+						var tmp = 0;
+						$(obj).animate({
+							left : arr[nL.index][0],
+							top : arr[nL.index][1]
+						});
+						$(nL).animate({
+							left : arr[obj.index][0],
+							top : arr[obj.index][1]
+						});
+						
+						nL.style.border = 'none';
+						
+						tmp = obj.index;
+						obj.index = nL.index;
+						nL.index = tmp;
+					}else{
+						$(obj).animate({
+							left : arr[obj.index][0],
+							top : arr[obj.index][1]
+						});
+					}
+					
+				});
+				return false;
+			});
+		}
+		
+		function nearLi(obj){
+			var value = 9999;
+			var index = -1;
+			for(var i=0;i<aLi.length;i++){
+				if( pz(obj, aLi[i]) && obj!=aLi[i] ){
+					var c = j1(obj, aLi[i]);
+					if(c<value){
+						value = c;
+						index = i;
+					}
+				}
+			}
+			if(index!=-1){
+				return aLi[index];
+			}else{
+				return false;
+			}
+		}
+		
+		function j1(obj1, obj2){
+			var a = obj1.offsetLeft - obj2.offsetLeft;
+			var b = obj1.offsetTop - obj2.offsetTop;
+			return Math.sqrt( a*a + b*b );
+		}
+		
+	</script>
+	
+</body>
+</html>
