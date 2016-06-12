@@ -96,40 +96,43 @@ h1 {
   left: 0;
   top: 0;
   z-index: 20;
-  width: 800px;
-  height: 500px;
   border: 5px solid #fff;
   border-radius: 5px;
   overflow: hidden;
   display: none;
   background: #fff url(../img/icon/loading.gif) no-repeat center center;
 }
-/* line 55, sass/style.scss */
+/* line 53, sass/style.scss */
+#pop .view {
+  position: relative;
+}
+/* line 56, sass/style.scss */
 #pop .btn {
   position: absolute;
-  top: 200px;
   width: 50px;
-  height: 45px;
+  height: 100%;
+  top: 0;
   background-repeat: no-repeat;
+  background-position: center center;
   cursor: pointer;
   opacity: 0;
   transition: .5s;
 }
-/* line 65, sass/style.scss */
+/* line 67, sass/style.scss */
 #pop .btn-show {
   opacity: 1;
 }
-/* line 68, sass/style.scss */
+/* line 70, sass/style.scss */
 #pop .btn-prev {
   background-image: url(../img/icon/prev.png);
   left: 0;
 }
-/* line 72, sass/style.scss */
+/* line 74, sass/style.scss */
 #pop .btn-next {
   background-image: url(../img/icon/next.png);
   right: 0;
 }
-/* line 76, sass/style.scss */
+/* line 78, sass/style.scss */
 #pop .caption {
   position: absolute;
   left: 0;
@@ -138,21 +141,21 @@ h1 {
   height: 70px;
   background: rgba(0, 0, 0, 0.5);
 }
-/* line 84, sass/style.scss */
+/* line 86, sass/style.scss */
 #pop .tip {
   padding: 12px 0 0 10px;
   height: 70px;
 }
-/* line 88, sass/style.scss */
+/* line 90, sass/style.scss */
 #pop .title {
   font-size: 16px;
   line-height: 30px;
 }
-/* line 92, sass/style.scss */
+/* line 94, sass/style.scss */
 #pop .index {
   color: #999;
 }
-/* line 95, sass/style.scss */
+/* line 97, sass/style.scss */
 #pop .close-btn {
   position: absolute;
   top: 21.5px;
